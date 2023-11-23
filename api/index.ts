@@ -13,7 +13,7 @@ app.get("/", async (c: Context) => {
   // https://usdt.abiui.xyz/
   // https://0x123456.mainnet.abiui.xyz/
   const url = c.req.url;
-  const dest = url.slice(url.indexOf("/") + 2, url.indexOf(".abi.xyz") - 10);
+  const dest = url.slice(url.indexOf("/") + 2, url.indexOf(".abi.dev") - 10);
   // console.log("dest: ", dest);
   // dest: usdt
   // dest: 0x123456.mainnet
