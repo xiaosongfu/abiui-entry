@@ -9,9 +9,9 @@ export const config = {
 const app = new Hono();
 
 app.get("/", async (c: Context) => {
-  // console.log(c.req.url);
-  // https://usdt.abiui.xyz/
-  // https://0x123456.mainnet.abiui.xyz/
+  // console.log("url: ", c.req.url);
+  // url: https://usdt.abiui.dev/
+  // url: https://0x123456.mainnet.abiui.dev/
   const url = c.req.url;
   const dest = url.slice(url.indexOf("/") + 2, url.indexOf(".abi.dev") - 10);
   // console.log("dest: ", dest);
@@ -21,20 +21,14 @@ app.get("/", async (c: Context) => {
   const contractAndNetwork = dest.split(".");
   if (contractAndNetwork.length === 2) {
     const { rows } =
-      await sql`SELECT * FROM public."contracts" WHERE contract=${contractAndNetwork[0]} AND network=${contractAndNetwork[1]}`;
-    if (rows.length === 0) {
-      return c.notFound();
-    }
+      await sql`SELECT "html" FROM public."contracts" WHERE contract=${contractAndNetwork[0]} AND network=${contractAndNetwork[1]}`;
 
-    return c.html(rows[0].html);
+    return rows.length === 0 ? c.notFound() : c.html(rows[0].html);
   } else {
     const { rows } =
-      await sql`SELECT * FROM public."contracts" WHERE alias=${dest}`;
-    if (rows.length === 0) {
-      return c.notFound();
-    }
+      await sql`SELECT "html" FROM public."contracts" WHERE alias=${dest}`;
 
-    return c.html(rows[0].html);
+    return rows.length === 0 ? c.notFound() : c.html(rows[0].html);
   }
 });
 

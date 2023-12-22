@@ -5,7 +5,7 @@
   },
   "dependencies": {
     "@vercel/postgres": "^0.5.1",
-    "hono": "^3.10.1"
+    "hono": "^3.11.9"
   },
   "devDependencies": {
     "vercel": "^32.4.1"
