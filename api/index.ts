@@ -18,10 +18,10 @@ app.get("/", async (c: Context) => {
   // dest: usdt
   // dest: 0x123456.mainnet
 
-  const contractAndNetwork = dest.split(".");
-  if (contractAndNetwork.length === 2) {
+  const addrAndNetwork = dest.split(".");
+  if (addrAndNetwork.length === 2) {
     const { rows } =
-      await sql`SELECT "html" FROM public."contracts" WHERE contract=${contractAndNetwork[0]} AND network=${contractAndNetwork[1]}`;
+      await sql`SELECT "html" FROM public."contracts" WHERE address=${addrAndNetwork[0]} AND network=${addrAndNetwork[1]}`;
 
     return rows.length === 0 ? c.notFound() : c.html(rows[0].html);
   } else {
